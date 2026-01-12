@@ -1,5 +1,4 @@
 module MoviesHelper
-
   def total_gross(movie)
     if movie.flop?
       "Flop!"
