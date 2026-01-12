@@ -1,8 +1,12 @@
 class Movie < ApplicationRecord
-  RATINGS = %w(G PG PG-13 R NC-17)
+  has_many :reviews, dependent: :destroy
+
+  RATINGS = %w[G PG PG-13 R NC-17]
 
   def flop?
-    total_gross.blank? || total_gross < 225_000_000
+    unless reviews.count > 50 && average_stars >= 4
+      (total_gross.blank? || total_gross < 225_000_000)
+    end
   end
 
   def self.released
@@ -15,4 +19,8 @@ class Movie < ApplicationRecord
   validates :image_file_name, format: { with: /\w+\.(jpg|png)\z/i,
                                         message: "must be a JPG or PNG image" }
   validates :rating, inclusion: { in: RATINGS }
+
+  def average_stars
+    reviews.average(:stars) || 0.00
+  end
 end
