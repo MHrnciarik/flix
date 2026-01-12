@@ -16,8 +16,7 @@ class Movie < ApplicationRecord
   validates :title, :released_on, :duration, presence: true
   validates :description, length: { minimum: 25 }
   validates :total_gross, numericality: { greater_than_or_equal_to: 0 }
-  validates :image_file_name, format: { with: /\w+\.(jpg|png)\z/i,
-                                        message: "must be a JPG or PNG image" }
+  validates :image_file_name, format: { with: /\A\w+\.(jpg|png)\z/i }
   validates :rating, inclusion: { in: RATINGS }
 
   def average_stars
