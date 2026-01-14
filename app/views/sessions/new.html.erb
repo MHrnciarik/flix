@@ -4,7 +4,7 @@
   <%= f.text_field :email_or_username, autofocus: true, required: true %>
 
   <%= f.label :password %>
-  <%= f.text_field :password, required: true %>
+  <%= f.password_field :password, required: true %>
 
   <p>
     No account yet? <%= link_to "Create an Acccount!", signup_path %>
