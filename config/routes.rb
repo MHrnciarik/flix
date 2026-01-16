@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :genres
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :users
   get "signup" => "users#new"
@@ -7,7 +8,10 @@ Rails.application.routes.draw do
 
   resources :movies do
     resources :reviews
+    resources :favorites, only: [ :create, :destroy ]
   end
+
+  get "movies/filter/:filter" => "movies#index", as: :filtered_movies
 
   resource :session, only: [ :new, :create, :destroy ]
   get "signin" => "sessions#new"
